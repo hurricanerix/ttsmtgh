@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2015 Richard Hawkins
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,22 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import argparse
-
-import ttsmtgh
+version = '0.0'
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description='Table Top Simulator helper for MTG.')
-    parser.add_argument(dest='deck', help='wmDeck file to create sheet for')
-    parser.add_argument('--version', '-v', action='version',
-                        version='%(prog)s {}'.format(ttsmtgh.version))
-
-    args = parser.parse_args()
-
-    ttsmtgh.run(args)
+CARD_LIST_URL = 'http://magiccards.info/{release}/en.html'
+SCAN_URL = 'http://magiccards.info/scans/en/{release}/{card_index}.jpg'
 
 
-if __name__ == '__main__':
-    main()
+def get_deck(f):
+    return {}
+
+
+def run(args):
+    d = get_deck(args.deck)
+    print(d)
