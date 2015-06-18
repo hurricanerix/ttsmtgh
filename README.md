@@ -12,7 +12,7 @@ Step 2
 Create deck image
 
 ```
-ttmtg draft.mwDeck
+./bin/ttsmtgh ./draft.mwDeck
 ```
 
 Step 3
