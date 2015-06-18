@@ -99,6 +99,10 @@ def get_scan(release, index):
     return r.content
 
 
+def scan_location(release, index):
+    return '{}/scans/{}/{}.jpg'.format(BASE_CACHE_DIR, release, index)
+
+
 def get_scans(deck):
     catalog = {}
     for c in deck:
@@ -108,3 +112,4 @@ def get_scans(deck):
         n = c.get('name')
         i = catalog[r].get(n)
         get_scan(r, i)
+    return catalog

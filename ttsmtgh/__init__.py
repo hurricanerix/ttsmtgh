@@ -15,8 +15,9 @@
 
 import sys
 
+from ttsmtgh.sheet import Swriter
 from ttsmtgh.mwdeck import get_deck
-from ttsmtgh.mcinfo import get_scans
+from ttsmtgh.mcinfo import get_scans, scan_location
 
 version = '0.0'
 
@@ -24,7 +25,19 @@ version = '0.0'
 def run(args):
     try:
         d = get_deck(args.deck)
-        get_scans(d)
+        catalog = get_scans(d)
     except Exception as e:
         print(e, file=sys.stderr)
         exit(1)
+
+    outfile = args.outfile or '{}.jpg'.format(args.deck)
+
+    sw = Swriter(outfile)
+    sw.open()
+    for c in d:
+        release = c.get('release')
+        name = c.get('name')
+        index = catalog.get(release, {}).get(name, '')
+        path = scan_location(release, index)
+        sw.append(path)
+    sw.close()

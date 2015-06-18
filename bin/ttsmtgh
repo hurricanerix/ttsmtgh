@@ -24,6 +24,8 @@ def main():
     parser = argparse.ArgumentParser(
         description='Table Top Simulator helper for MTG.')
     parser.add_argument(dest='deck', help='wmDeck file to create sheet for')
+    parser.add_argument('--outfile', '-o', default=None,
+                        help='optional file to write out to')
     parser.add_argument('--version', '-v', action='version',
                         version='%(prog)s {}'.format(ttsmtgh.version))
     args = parser.parse_args()
