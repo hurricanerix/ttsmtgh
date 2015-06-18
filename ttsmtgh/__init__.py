@@ -16,18 +16,15 @@
 import sys
 
 from ttsmtgh.mwdeck import get_deck
+from ttsmtgh.mcinfo import get_scans
 
 version = '0.0'
-
-
-CARD_LIST_URL = 'http://magiccards.info/{release}/en.html'
-SCAN_URL = 'http://magiccards.info/scans/en/{release}/{card_index}.jpg'
 
 
 def run(args):
     try:
         d = get_deck(args.deck)
+        get_scans(d)
     except Exception as e:
         print(e, file=sys.stderr)
         exit(1)
-    print(d)

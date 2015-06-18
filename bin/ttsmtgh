@@ -26,9 +26,7 @@ def main():
     parser.add_argument(dest='deck', help='wmDeck file to create sheet for')
     parser.add_argument('--version', '-v', action='version',
                         version='%(prog)s {}'.format(ttsmtgh.version))
-
     args = parser.parse_args()
-
     ttsmtgh.run(args)
 
 

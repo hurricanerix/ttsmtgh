@@ -24,13 +24,15 @@ def file_exists(filepath):
 
 
 def parse_card(l):
-    l = l.lower()
-    parts = l.split()
-    offset = 0
     c = {'sb': False}
-    if l.startswith('sb'):
+    offset = 0
+    l = l.lower()
+    if l.startswith('sb:'):
+        parts = l.split(' ', 3)
         c['sb'] = True
         offset = 1
+    else:
+        parts = l.split(' ', 2)
     c['count'] = int(parts[0 + offset])
     c['release'] = parts[1 + offset].strip('[]')
     c['name'] = parts[2 + offset]
