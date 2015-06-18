@@ -13,6 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
+
+from ttsmtgh.mwdeck import get_deck
+
 version = '0.0'
 
 
@@ -20,10 +24,10 @@ CARD_LIST_URL = 'http://magiccards.info/{release}/en.html'
 SCAN_URL = 'http://magiccards.info/scans/en/{release}/{card_index}.jpg'
 
 
-def get_deck(f):
-    return {}
-
-
 def run(args):
-    d = get_deck(args.deck)
+    try:
+        d = get_deck(args.deck)
+    except Exception as e:
+        print(e, file=sys.stderr)
+        exit(1)
     print(d)
