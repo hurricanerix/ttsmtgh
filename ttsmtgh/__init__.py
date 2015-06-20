@@ -18,7 +18,7 @@ import logging
 
 from ttsmtgh.sheet import Swriter
 from ttsmtgh.mwdeck import MWDeck
-from ttsmtgh.mcinfo import get_scans, scan_location
+from ttsmtgh.mcinfo import MTGInfo
 
 version = '0.0'
 
@@ -35,22 +35,17 @@ def run(args):
 
     logger.info("running app")
 
-    try:
-        mwd = MWDeck(args.deck, io=appio, logger=logger)
-        mwd.load()
-        catalog = get_scans(mwd.deck)
-    except Exception as e:
-        print(e, file=sys.stderr)
-        exit(1)
+    mwd = MWDeck(args.deck, io=appio, logger=logger)
+    mwd.load()
+    mtgi = MTGInfo(mwd.releases, io=appio, logger=logger)
+    mtgi.load()
 
     outfile = args.outfile or '{}.jpg'.format(args.deck)
-
     sw = Swriter(outfile)
     sw.open()
     for c in mwd.deck:
-        release = c.get('release')
         name = c.get('name')
-        index = catalog.get(release, {}).get(name, '')
-        path = scan_location(release, index)
+        release = c.get('release')
+        path = mtgi.scan_location(release, name)
         sw.append(path)
     sw.close()

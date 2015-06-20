@@ -25,7 +25,7 @@ class MWDeck(object):
 
     def __init__(self, filename, io=None, logger=None):
         self.logger = logger
-        self._debug('MWDeck.__init__(\'{}\', logger={})'.format(filename, logger))
+        self._debug('MWDeck.__init__(\'{}\', io={}, logger={})'.format(filename, io, logger))
         self.filename = filename
         self.io = io
         self.deck = []
