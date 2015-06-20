@@ -26,9 +26,14 @@ def main():
     parser.add_argument(dest='deck', help='wmDeck file to create sheet for')
     parser.add_argument('--outfile', '-o', default=None,
                         help='optional file to write out to')
-    parser.add_argument('--version', '-v', action='version',
+    parser.add_argument('--version', action='version',
                         version='%(prog)s {}'.format(ttsmtgh.version))
+    parser.add_argument('--verbose', '-v', default=False, action='store_true',
+                        help='verbose output')
+    parser.add_argument('--debug', '-d', default=False, action='store_true',
+                        help='debug output')
     args = parser.parse_args()
+
     ttsmtgh.run(args)
 
 

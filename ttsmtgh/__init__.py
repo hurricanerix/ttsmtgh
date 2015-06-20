@@ -14,18 +14,31 @@
 # limitations under the License.
 
 import sys
+import logging
 
 from ttsmtgh.sheet import Swriter
-from ttsmtgh.mwdeck import get_deck
+from ttsmtgh.mwdeck import MWDeck
 from ttsmtgh.mcinfo import get_scans, scan_location
 
 version = '0.0'
 
 
 def run(args):
+    logging.basicConfig()
+    logger = logging.getLogger('ttsmtgh')
+
+    appio = None
+    if args.verbose:
+        appio = sys.stdout
+    if args.debug:
+        logging.getLogger().setLevel(logging.DEBUG)
+
+    logger.info("running app")
+
     try:
-        d = get_deck(args.deck)
-        catalog = get_scans(d)
+        mwd = MWDeck(args.deck, io=appio, logger=logger)
+        mwd.load()
+        catalog = get_scans(mwd.deck)
     except Exception as e:
         print(e, file=sys.stderr)
         exit(1)
@@ -34,7 +47,7 @@ def run(args):
 
     sw = Swriter(outfile)
     sw.open()
-    for c in d:
+    for c in mwd.deck:
         release = c.get('release')
         name = c.get('name')
         index = catalog.get(release, {}).get(name, '')

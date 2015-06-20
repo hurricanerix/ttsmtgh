@@ -1,1 +1,6 @@
 ttsmtgh.egg-info/
+*.mwDeck
+*.jpg
+*.swp
+*.pyc
+__pycache__
